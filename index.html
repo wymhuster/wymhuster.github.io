@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Hexo">
+<meta property="og:url" content="http://yoursite.com/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Hexo">
+<meta name="twitter:description">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main">
+  
+    <article id="post-how-to-use-port-knocking-on-centos-7" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/06/04/how-to-use-port-knocking-on-centos-7/" class="article-date">
+  <time datetime="2016-06-04T09:46:16.000Z" itemprop="datePublished">2016-06-04</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/06/04/how-to-use-port-knocking-on-centos-7/">How to use Port Knocking to hide your SSH Daemon on centos 7</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="Install-knockd-on-centos-7"><a href="#Install-knockd-on-centos-7" class="headerlink" title="Install  knockd on centos 7"></a>Install  knockd on centos 7</h2><p>At first ,you should down the rpm packages of knockd through wget<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget http://www.invoca.ch/pub/packages/knock/RPMS/ils-7/SRPMS/knock-0.7-1.el7.src.rpm</span><br></pre></td></tr></table></figure></p>
+<p>the download url of SRPM :<a href="http://www.invoca.ch/pub/packages/knock/" target="_blank" rel="external">http://www.invoca.ch/pub/packages/knock/</a></p>
+<p>rpmbuild the *.src.rpm files</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rpmbuild --rebuild knock-0.7-1.e17.src.rpm</span><br></pre></td></tr></table></figure>
+<p>rpm install the rpm files after rebuild the src.rpm files</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rpm -ivh /the/path/of/rebuild/files</span><br></pre></td></tr></table></figure>
+<h2 id="PAY-ATTENTION"><a href="#PAY-ATTENTION" class="headerlink" title="PAY ATTENTION"></a>PAY ATTENTION</h2><p>when you begin to use knockd ,you should start your iptables service firstly.But on centos 7, firewalld was introduced to manage iptables. IMHO, firewalld is more suited for workstations than for server environments.It is possible to go back to a more classic iptables setup. First, stop and mask the firewalld service:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">systemctl stop firewalld</span><br><span class="line">systemctl mask firewalld</span><br></pre></td></tr></table></figure></p>
+<p>Then,install iptables-service packages<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install iptables-services</span><br></pre></td></tr></table></figure></p>
+<p>Enable the service at boot-time<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl <span class="built_in">enable</span> iptables</span><br></pre></td></tr></table></figure></p>
+<p>Magnaging the service<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl [stop|start|restart] iptables</span><br></pre></td></tr></table></figure></p>
+<p>Saving the firewall rules can be down as follows<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">service iptables save</span><br></pre></td></tr></table></figure></p>
+<h2 id="How-Does-Port-Knocking-Work"><a href="#How-Does-Port-Knocking-Work" class="headerlink" title="How Does Port Knocking Work?"></a>How Does Port Knocking Work?</h2><p>Port knocking works by configuring a service to watch firewall logs or packet capture interfaces for connection attempts. If a specific sequence of predefined connection attempts (or “knocks”) are made, the service will modify the firewall rules to open up connections on a certain port.</p>
+<p>This allows you to keep your services hidden until you actually plan on using them. This would not be practical for something like an HTTP server because you would want connections available at all time. But it would be useful for services meant to be used only by known, legitimate users, like SSH.</p>
+<p>Although a knocking sequence can be arbitrarily complex, it is not, in and of itself, usually the only set of security measures. Usually the service’s own security and authentication methods are then exposed to a user who issues the correct sequence. In this way, port knocking adds an additional layer that a user must go through to even get to the regular authentication.</p>
+<p>Even more helpful is that there is no feedback given on knocking attempts. An intruder scanning would see all of the usual ports closed and if they attempted a knocking sequence, would have to check between each attempt to see if a port was opened. This is often enough to dissuade or prohibit attackers.</p>
+<p>For our purposes, we will be using the iptables firewall that comes with Centos 7, and installing a daemon called knockd to provide the port knocking functionality.</p>
+<h2 id="Configure-IPTables-to-Block-Most-Traffic"><a href="#Configure-IPTables-to-Block-Most-Traffic" class="headerlink" title="Configure IPTables to Block Most Traffic"></a>Configure IPTables to Block Most Traffic</h2><p>Begin by allowing traffic on the local machine. This means accepting traffic that the server generates and sends to itself. This allows services to talk to each other without being blocked:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo iptables -A INPUT -i lo -j ACCEPT</span><br></pre></td></tr></table></figure></p>
+<p>Next, we want to make sure we allow all established connections and traffic related to established connections by typing:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo iptables -A INPUT -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT</span><br></pre></td></tr></table></figure></p>
+<p>And ,accept the port 80 to run the web service .<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo iptables -A INPUT -p --dport 80 -j ACCEPT</span><br></pre></td></tr></table></figure></p>
+<p>Now, we will drop everything we haven’t specifically allowed. Add this rule:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo iptables -A INPUT -j DROP</span><br></pre></td></tr></table></figure></p>
+<p>Any traffic that hasn’t been handled by the above rules will be dropped. You can view your rules by typing:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo iptables -S</span><br></pre></td></tr></table></figure></p>
+<p>You will see the below<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">-P INPUT ACCEPT</span><br><span class="line">-P FORWARD ACCEPT</span><br><span class="line">-P OUTPUT ACCEPT</span><br><span class="line">-A INPUT -i lo -j ACCEPT</span><br><span class="line">-A INPUT -m conntrack --ctstate RELATED,ESTABLISHED -j ACCEPT</span><br><span class="line">-A INPUT -p tcp -m tcp --dport 80 -j ACCEPT</span><br><span class="line">-A INPUT -j DROP</span><br></pre></td></tr></table></figure></p>
+<h2 id="Make-the-iptables-persistent-after-reboot"><a href="#Make-the-iptables-persistent-after-reboot" class="headerlink" title="Make the iptables persistent after reboot"></a>Make the iptables persistent after reboot</h2><p>the iptables will be lost after you rebuild your server.In order to persistent the iptables ,vim /etc/sysconfig/iptables-config<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">IPTABLES_SAVE_ON_STOP=<span class="string">"no"</span></span><br><span class="line">IPTABLES_SAVE_ON_RESTART=<span class="string">"no"</span></span><br></pre></td></tr></table></figure></p>
+<p>set IPTABLES_SAVE_ON_STOP=”no” to “yes”<br>set IPTABLES_SAVE_ON_RESTART=”no” to “yes”</p>
+<font size="5" color="red">Do’t do this step until you make sure that your iptables is set correctlly</font>
+
+<h2 id="Configure-Knockd-to-Use-Port-Knocking"><a href="#Configure-Knockd-to-Use-Port-Knocking" class="headerlink" title="Configure Knockd to Use Port Knocking"></a>Configure Knockd to Use Port Knocking</h2><p>To configure the service, we will have to edit the configuration file. Open this file with root privileges:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/knockd.conf</span><br><span class="line">```bash</span><br><span class="line">You will see the below</span><br><span class="line">[options]</span><br><span class="line">    UseSyslog</span><br><span class="line">[opencloseSSH]</span><br><span class="line">    sequence      = 2222:udp,3333:tcp,4444:udp</span><br><span class="line">    seq_timeout   = 15</span><br><span class="line">    tcpflags      = syn,ack</span><br><span class="line">    start_<span class="built_in">command</span> = /sbin/iptables -A INPUT <span class="_">-s</span> %IP% -p tcp --dport ssh -j ACCEPT</span><br><span class="line">    cmd_timeout   = 10</span><br><span class="line">    stop_<span class="built_in">command</span>  = /sbin/iptables -D INPUT <span class="_">-s</span> %IP% -p tcp --dport ssh -j ACCEPT</span><br></pre></td></tr></table></figure></p>
+<p>The result is that when the correct sequence is used, the daemon will open the SSH port. It will then wait 10 seconds and then close the port again.Implement your new rule by restarting the daemon:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo service knockd restart</span><br><span class="line">sudo chkconfig knockd on</span><br></pre></td></tr></table></figure></p>
+<h2 id="Now-knock-the-door"><a href="#Now-knock-the-door" class="headerlink" title="Now knock the door!"></a>Now knock the door!</h2><p>THE OS is windows 10,and I’m using the knock client to knock the server.<br>THE url to download client :<a href="http://www.zeroflux.org/proj/knock/files/knock-win32.zip" target="_blank" rel="external">http://www.zeroflux.org/proj/knock/files/knock-win32.zip</a><br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">knock -v 192.168.1.254 2100:tcp 2200:udp 2300:tcp</span><br></pre></td></tr></table></figure></p>
+<p>And you will find you can enter your server through ssh</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2016/06/04/how-to-use-port-knocking-on-centos-7/" data-id="cip23bxkp00028gvjd4cnckkl" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="[layout]-hello" class="article article-type-[layout]" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/06/04/hello/" class="article-date">
+  <time datetime="2016-06-04T08:50:01.000Z" itemprop="datePublished">2016-06-04</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/06/04/hello/">hello</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2016/06/04/hello/" data-id="cip23bxkd00008gvjbkf090md" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-hello-world" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/06/04/hello-world/" class="article-date">
+  <time datetime="2016-06-04T08:21:09.817Z" itemprop="datePublished">2016-06-04</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/06/04/hello-world/">Hello World</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h4 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br><span class="line">hello world</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2016/06/04/hello-world/" data-id="cip23bxkl00018gvjf801vi3s" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">June 2016</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2016/06/04/how-to-use-port-knocking-on-centos-7/">How to use Port Knocking to hide your SSH Daemon on centos 7</a>
+          </li>
+        
+          <li>
+            <a href="/2016/06/04/hello/">hello</a>
+          </li>
+        
+          <li>
+            <a href="/2016/06/04/hello-world/">Hello World</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2016 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>
