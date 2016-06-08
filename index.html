@@ -105,7 +105,7 @@
     motion: true,
     duoshuo: {
       userId: 0,
-      author: 'Author'
+      author: '博主'
     }
   };
 </script>
@@ -113,7 +113,7 @@
   <title> wymhuster </title>
 </head>
 
-<body itemscope itemtype="http://schema.org/WebPage" lang="">
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
 
   
 
@@ -170,7 +170,7 @@
             
               <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
             
-            Startseite
+            首页
           </a>
         </li>
       
@@ -180,7 +180,7 @@
             
               <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
             
-            Archiv
+            归档
           </a>
         </li>
       
@@ -190,7 +190,7 @@
             
               <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
             
-            Tags
+            标签
           </a>
         </li>
       
@@ -246,7 +246,7 @@
             <span class="post-meta-item-icon">
               <i class="fa fa-calendar-o"></i>
             </span>
-            <span class="post-meta-item-text">Veröffentlicht am</span>
+            <span class="post-meta-item-text">发表于</span>
             <time itemprop="dateCreated" datetime="2016-06-08T10:17:35+08:00" content="2016-06-08">
               2016-06-08
             </time>
@@ -339,7 +339,7 @@
             <span class="post-meta-item-icon">
               <i class="fa fa-calendar-o"></i>
             </span>
-            <span class="post-meta-item-text">Veröffentlicht am</span>
+            <span class="post-meta-item-text">发表于</span>
             <time itemprop="dateCreated" datetime="2016-06-04T17:46:16+08:00" content="2016-06-04">
               2016-06-04
             </time>
@@ -400,7 +400,7 @@
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/knockd.conf</span><br></pre></td></tr></table></figure>
 <p>You will see the below<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">[options]</span><br><span class="line">    UseSyslog</span><br><span class="line">[opencloseSSH]</span><br><span class="line">    sequence      = 2222:udp,3333:tcp,4444:udp</span><br><span class="line">    seq_timeout   = 15</span><br><span class="line">    tcpflags      = syn,ack</span><br><span class="line">    start_<span class="built_in">command</span> = /sbin/iptables -A INPUT <span class="_">-s</span> %IP% -p tcp --dport ssh -j ACCEPT</span><br><span class="line">    cmd_timeout   = 10</span><br><span class="line">    stop_<span class="built_in">command</span>  = /sbin/iptables -D INPUT <span class="_">-s</span> %IP% -p tcp --dport ssh -j ACCEPT</span><br></pre></td></tr></table></figure></p>
 <p>The result is that when the correct sequence is used, the daemon will open the SSH port. It will then wait 10 seconds and then close the port again.Implement your new rule by restarting the daemon:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo service knockd restart</span><br><span class="line">sudo chkconfig knockd on</span><br></pre></td></tr></table></figure></p>
-<h2 id="xNow-knock-the-door"><a href="#xNow-knock-the-door" class="headerlink" title="xNow knock the door!"></a>xNow knock the door!</h2><p>THE OS is windows 10,and I’m using the knock client to knock the server.<br>THE url to download client :<a href="http://www.zeroflux.org/proj/knock/files/knock-win32.zip" target="_blank" rel="external">http://www.zeroflux.org/proj/knock/files/knock-win32.zip</a><br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">knock -v 192.168.1.254 2100:tcp 2200:udp 2300:tcp</span><br></pre></td></tr></table></figure></p>
+<h2 id="Now-knock-the-door"><a href="#Now-knock-the-door" class="headerlink" title="Now knock the door!"></a>Now knock the door!</h2><p>THE OS is windows 10,and I’m using the knock client to knock the server.<br>THE url to download client :<a href="http://www.zeroflux.org/proj/knock/files/knock-win32.zip" target="_blank" rel="external">http://www.zeroflux.org/proj/knock/files/knock-win32.zip</a><br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">knock -v 192.168.1.254 2100:tcp 2200:udp 2300:tcp</span><br></pre></td></tr></table></figure></p>
 <p>And you will find you can enter your server through ssh</p>
 
           
@@ -472,7 +472,7 @@
           <div class="site-state-item site-state-posts">
             <a href="/archives">
               <span class="site-state-item-count">2</span>
-              <span class="site-state-item-name">Artikel</span>
+              <span class="site-state-item-name">日志</span>
             </a>
           </div>
 
@@ -519,11 +519,11 @@
 </div>
 
 <div class="powered-by">
-  Erstellt mit  <a class="theme-link" href="http://hexo.io">Hexo</a>
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
 </div>
 
 <div class="theme-info">
-  Theme -
+  主题 -
   <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
     NexT.Mist
   </a>
