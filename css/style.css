@@ -2293,6 +2293,31 @@ pre .css ~ * .id {
   height: 100%;
   overflow: hidden;
 }
+.search {
+  padding: 1em 0 0 2.5em;
+}
+.search input {
+  line-height: 1.8em;
+  border: 1px solid color-white;
+  color: color-white;
+  background: transparent;
+  padding-left: 4em;
+}
+@media tablet {
+  .search input {
+    width: 4em;
+    -webkit-transition: 0.5s width;
+    -moz-transition: 0.5s width;
+    -ms-transition: 0.5s width;
+    transition: 0.5s width;
+  }
+  .search input:focus {
+    width: 8em;
+  }
+}
+.search label {
+  display: none;
+}
 form input.st-search-input_my {
   font-size: 12px;
   padding: 4px 9px 4px 27px;
